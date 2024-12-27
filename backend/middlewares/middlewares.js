@@ -8,11 +8,10 @@ module.exports.authmiddleware=(req,res,next)=>{
     const token = authHeader.split(' ')[1];
     try{
             const decode = jwt.verify(token,process.env.JWT_SECRET)
-            if(decode.userid){
-                
-            }
+            req.userId = decode.userId;
+            next();
     }
     catch(err){
-
+        return res.status(403).json({message:msg.console.error()})  
     }
 }
