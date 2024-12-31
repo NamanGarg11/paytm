@@ -27,8 +27,9 @@ const userSchema = new mongoose.Schema({
 
 });
 const user  = mongoose.model('User', userSchema);
-userSchema.models.jwtauth = function(){
-    const token = jwt.sign({_id:this._id},process.env.JWT_SECRET)
+userSchema.methods.jwtauth = function() {
+    const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET);
     return token;
-}
+};
+
 module.exports = user;
